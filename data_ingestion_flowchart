@@ -1,0 +1,29 @@
+digraph Data_Ingestion_Flow {
+	rankdir=TB size="10,10"
+	A [label="Data Ingestion Config
+• Data Ingestion Dir
+• Feature Store File Path
+• Training File Path
+• Testing File Path
+• Train-Test Split Ratio
+• Collection Name" color=lightblue shape=box style=filled]
+	B [label="Initiate Data Ingestion" color=lightpurple shape=box style=filled]
+	C [label="Export Data to Feature Store" color=lightpurple shape=box style=filled]
+	D [label="Split Data as Train and Test" color=lightpurple shape=box style=filled]
+	E [label="Data Ingestion Artifact" color=lightgreen shape=box style=filled]
+	F [label=MongoDB shape=cylinder]
+	G [label="usvisa.csv" shape=note]
+	H [label="train.csv" shape=note]
+	I [label="test.csv" shape=note]
+	J [label="Feature Store" shape=folder]
+	K [label=Artifact shape=folder]
+	A -> B [label=data_access]
+	B -> F [label=data_access]
+	B -> C
+	C -> G
+	C -> J [label=Ingested]
+	D -> E
+	E -> H
+	E -> I
+	E -> K [label=artifact]
+}
