@@ -75,11 +75,6 @@ docs/_build/
 .pybuilder/
 target/
 
-# Jupyter Notebook
-.ipynb_checkpoints
-mongodb_demo.ipynb
-notebook\mongodb_demo.ipynb
-notebook/mongodb_demo.ipynb
 
 # IPython
 profile_default/
