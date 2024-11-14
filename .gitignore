@@ -77,7 +77,7 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
-notebook/mongodb_demo.ipynb
+mongodb_demo.ipynb
 
 # IPython
 profile_default/
