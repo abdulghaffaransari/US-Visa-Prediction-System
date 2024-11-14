@@ -78,12 +78,13 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 mongodb_demo.ipynb
+notebook\mongodb_demo.ipynb
+notebook/mongodb_demo.ipynb
 
 # IPython
 profile_default/
 ipython_config.py
-notebook\mongodb_demo.ipynb
-notebook/mongodb_demo.ipynb
+
 
 # pyenv
 #   For a library or package, you might want to ignore these files since the code is
