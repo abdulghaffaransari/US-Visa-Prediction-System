@@ -6,19 +6,22 @@ from us_visa.components.data_validation import DataValidation
 from us_visa.components.data_transformation import DataTransformation
 from us_visa.components.model_trainer import ModelTrainer
 from us_visa.components.model_evaluation import ModelEvaluation
+from us_visa.components.model_pusher import ModelPusher
+
 
 from us_visa.entity.config_entity import (DataIngestionConfig,
-                                          DataValidationConfig,
-                                           DataTransformationConfig,
-                                            ModelTrainerConfig,
-                                            ModelEvaluationConfig)
-
+                                         DataValidationConfig,
+                                         DataTransformationConfig,
+                                         ModelTrainerConfig,
+                                         ModelEvaluationConfig,
+                                         ModelPusherConfig)
 
 from us_visa.entity.artifact_entity import (DataIngestionArtifact,
                                             DataValidationArtifact,
                                             DataTransformationArtifact,
                                             ModelTrainerArtifact,
-                                            ModelEvaluationArtifact)
+                                            ModelEvaluationArtifact,
+                                            ModelPusherArtifact)
 
 
 class TrainPipeline:
@@ -27,6 +30,10 @@ class TrainPipeline:
         self.data_validation_config = DataValidationConfig()
         self.data_transformation_config = DataTransformationConfig()
         self.model_trainer_config = ModelTrainerConfig()
+        self.model_evaluation_config = ModelEvaluationConfig()
+        self.model_pusher_config = ModelPusherConfig()
+
+
     
     def start_data_ingestion(self) -> DataIngestionArtifact:
         """
@@ -44,8 +51,8 @@ class TrainPipeline:
             return data_ingestion_artifact
         except Exception as e:
             raise USvisaException(e, sys) from e
-    
-    
+        
+
     
     def start_data_validation(self, data_ingestion_artifact: DataIngestionArtifact) -> DataValidationArtifact:
         """
@@ -70,9 +77,9 @@ class TrainPipeline:
 
         except Exception as e:
             raise USvisaException(e, sys) from e
-    
-    
-    
+        
+
+
     def start_data_transformation(self, data_ingestion_artifact: DataIngestionArtifact, data_validation_artifact: DataValidationArtifact) -> DataTransformationArtifact:
         """
         This method of TrainPipeline class is responsible for starting data transformation component
@@ -85,8 +92,8 @@ class TrainPipeline:
             return data_transformation_artifact
         except Exception as e:
             raise USvisaException(e, sys)
-    
-    
+        
+
     
     def start_model_trainer(self, data_transformation_artifact: DataTransformationArtifact) -> ModelTrainerArtifact:
         """
@@ -101,9 +108,9 @@ class TrainPipeline:
 
         except Exception as e:
             raise USvisaException(e, sys)
+        
     
-    
-    
+
     def start_model_evaluation(self, data_ingestion_artifact: DataIngestionArtifact,
                                model_trainer_artifact: ModelTrainerArtifact) -> ModelEvaluationArtifact:
         """
@@ -117,9 +124,26 @@ class TrainPipeline:
             return model_evaluation_artifact
         except Exception as e:
             raise USvisaException(e, sys)
+        
+
     
-    
-    
+    def start_model_pusher(self, model_evaluation_artifact: ModelEvaluationArtifact) -> ModelPusherArtifact:
+        """
+        This method of TrainPipeline class is responsible for starting model pushing
+        """
+        try:
+            model_pusher = ModelPusher(model_evaluation_artifact=model_evaluation_artifact,
+                                       model_pusher_config=self.model_pusher_config
+                                       )
+            model_pusher_artifact = model_pusher.initiate_model_pusher()
+            return model_pusher_artifact
+        except Exception as e:
+            raise USvisaException(e, sys)
+
+        
+        
+        
+
     
     def run_pipeline(self, ) -> None:
         """
@@ -133,9 +157,12 @@ class TrainPipeline:
             model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
             model_evaluation_artifact = self.start_model_evaluation(data_ingestion_artifact=data_ingestion_artifact,
                                                                     model_trainer_artifact=model_trainer_artifact)
-
+            
+            if not model_evaluation_artifact.is_model_accepted:
+                logging.info(f"Model not accepted.")
+                return None
+            model_pusher_artifact = self.start_model_pusher(model_evaluation_artifact=model_evaluation_artifact)
 
         except Exception as e:
             raise USvisaException(e, sys)
-    
-    
+        
