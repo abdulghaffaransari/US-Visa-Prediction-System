@@ -188,3 +188,10 @@ Email: [abdulghaffaransari9@gmail.com](mailto:abdulghaffaransari9@gmail.com)
 LinkedIn: [LinkedIn Profile](https://www.linkedin.com/in/abdulghaffaransari/)  
 ---
 
+## **Contact**
+
+**Author**: Abdul Ghaffar Ansari  
+**Email**: [abdulghaffaransari9@gmail.com](mailto:abdulghaffaransari9@gmail.com)  
+**LinkedIn**: [LinkedIn Profile](https://www.linkedin.com/in/abdulghaffaransari/)  
+
+---
