@@ -184,8 +184,7 @@ This project is licensed under the [MIT License](LICENSE).
 ## **Contact**
 
 **Author**: Abdul Ghaffar Ansari  
-**Email**: abdulghaffaransari9@gmail.com 
-**LinkedIn**: [LinkedIn Profile](<[linkedin-url](https://www.linkedin.com/in/abdulghaffaransari/)>)  
-
-
+**Email**: [abdulghaffaransari9@gmail.com](mailto:abdulghaffaransari9@gmail.com)  
+**LinkedIn**: [LinkedIn Profile](https://www.linkedin.com/in/abdulghaffaransari/)  
 ---
+
