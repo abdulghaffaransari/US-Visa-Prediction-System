@@ -9,6 +9,8 @@ from us_visa.exception import USvisaException
 from us_visa.logger import logging
 from us_visa.utils.main_utils import read_yaml_file
 from pandas import DataFrame
+from us_visa.utils.main_utils import load_object
+
 
 
 class USvisaData:
@@ -55,6 +57,26 @@ class USvisaData:
         
         except Exception as e:
             raise USvisaException(e, sys) from e
+    
+    
+    # def get_usvisa_input_data_frame(self):
+    #     try:
+    #         data = {
+    #             "continent": [self.continent],
+    #             "education_of_employee": [self.education_of_employee],
+    #             "has_job_experience": [self.has_job_experience],
+    #             "requires_job_training": [self.requires_job_training],
+    #             "no_of_employees": [int(self.no_of_employees)],
+    #             "company_age": [int(self.company_age)],
+    #             "region_of_employment": [self.region_of_employment],
+    #             "prevailing_wage": [float(self.prevailing_wage)],
+    #             "unit_of_wage": [self.unit_of_wage],
+    #             "full_time_position": [self.full_time_position],
+    #         }
+    #         return pd.DataFrame(data)
+    #     except Exception as e:
+    #         raise Exception(f"Error in get_usvisa_input_data_frame: {e}")
+
 
 
     def get_usvisa_data_as_dict(self):
@@ -115,3 +137,27 @@ class USvisaClassifier:
         
         except Exception as e:
             raise USvisaException(e, sys)
+
+
+
+
+
+# class USvisaClassifier:
+#     def __init__(self):
+#         self.model_path = "path/to/trained_model.pkl"
+#         self.model = None
+#         self.load_model()
+
+#     def load_model(self):
+#         try:
+#             self.model = load_object(self.model_path)
+#         except Exception as e:
+#             raise Exception(f"Error loading model: {e}")
+
+#     def predict(self, dataframe: pd.DataFrame):
+#         try:
+#             if self.model is None:
+#                 raise Exception("Model not loaded.")
+#             return self.model.predict(dataframe)
+#         except Exception as e:
+#             raise Exception(f"Error during prediction: {e}")
